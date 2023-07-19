@@ -18,8 +18,40 @@
                         <div class="mb-4">
                             @foreach ($question->answers as $answer)
                                 <div class="mb-4">
+                                    <p>
+                                        @php $tagArray = [];  @endphp
+                                        @if($answer->is_correct)
+                                            @php $tagArray[] = 'Correct'; @endphp
+                                        @endif
+
+                                        @if($answer->question->best_answer_id === $answer->id)
+                                            @php $tagArray[] = 'Best'; @endphp
+                                        @endif
+
+                                        @if(count($tagArray))
+                                            [
+                                                @foreach($tagArray as $tag)
+                                                    {{ $tag }}
+
+                                                    @if(!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            ]
+                                        @endif
+                                    </p>
                                     <p>{{ $answer->answer }}</p>
                                     <p class="text-sm"><i>{{ $answer->created_at->diffForHumans() }}</i> posted by <b>{{ $answer->user->name }}</b></p>
+
+                                    <form action="{{ route('answer.correct', $answer) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="text-sm font-bold text-green-500">Mark as correct</button>
+                                    </form>
+
+                                    <form action="{{ route('answer.best', $answer) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="text-sm font-bold text-blue-500">Mark as best answer</button>
+                                    </form>
                                 </div>
                             @endforeach
                         </div>

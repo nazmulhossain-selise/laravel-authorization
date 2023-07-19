@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
@@ -20,8 +21,10 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [QuestionController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/questions/{id}', [QuestionController::class, 'show'])->middleware(['auth', 'verified'])->name('questions.show');
+Route::get('/question/{id}', [QuestionController::class, 'show'])->middleware(['auth', 'verified'])->name('questions.show');
 
+Route::post('/answer/{id}/correct', [AnswerController::class, 'correct'])->middleware(['auth', 'verified'])->name('answer.correct');
+Route::post('/answer/{id}/best', [AnswerController::class, 'best'])->middleware(['auth', 'verified'])->name('answer.best');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
