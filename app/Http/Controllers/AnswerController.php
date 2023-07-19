@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
-use App\Models\Question;
 use Illuminate\Http\Request;
 
 class AnswerController extends Controller
@@ -25,11 +24,8 @@ class AnswerController extends Controller
     {
         $answer = Answer::findOrFail($answerId);
 
-        $question = Question::findOrFail($answer->question_id);
-
-        
-        $question->best_answer_id = $answer->id;
-        $question->save();
+        $answer->question->best_answer_id = $answer->id;
+        $answer->question->save();
 
         return back();
     }
