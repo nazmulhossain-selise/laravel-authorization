@@ -44,6 +44,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    //roles 
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
+    //assign a role to a user
+    public function assignRole(Role $role)
+    {
+        return $this->roles()->save($role);
+    }
+
     public function questions()
     {
         return $this->hasMany(Question::class);
