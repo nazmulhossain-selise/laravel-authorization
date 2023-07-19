@@ -18,10 +18,18 @@ class AnswerFactory extends Factory
      */
     public function definition(): array
     {
+
+        $question_id = Question::pluck('id')->random();
+
+        $question = Question::find($question_id);
+
+        //pick another random user for the answer
+        $user_id = User::pluck('id')->except($question->user_id)->random();
+
         return [
-            'user_id' => User::pluck('id')->random(),
-            'question_id' => Question::pluck('id')->random(),
-            'answer' => fake()->sentence(),
+            'user_id' => $user_id,
+            'question_id' => $question_id,
+            'answer' => fake()->paragraph(),
             'is_correct' => false,
         ];
     }

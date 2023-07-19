@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('question_id');
-            $table->string('answer');
+            $table->text('answer');
             $table->boolean('is_correct')->default(false);
             
             $table->timestamps();
