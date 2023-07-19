@@ -20,5 +20,12 @@ class QuestionSeeder extends Seeder
                 'question_id' => $question->id
             ]);
         });
+
+        $questions = Question::factory(3)->create(["user_id" => 1]);
+        $questions->each(function ($question) {
+            Answer::factory(rand(1,8))->create([
+                'question_id' => $question->id
+            ]);
+        });
     }
 }
