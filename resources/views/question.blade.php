@@ -42,16 +42,19 @@
                                     </p>
                                     <p>{{ $answer->answer }}</p>
                                     <p class="text-sm"><i>{{ $answer->created_at->diffForHumans() }}</i> posted by <b>{{ $answer->user->name }}</b></p>
+                                          
+                                    @can('can_update_all_questions')
+                                        <form action="{{ route('answer.correct', $answer) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="text-sm font-bold text-green-500">Mark as correct</button>
+                                        </form>
 
-                                    <form action="{{ route('answer.correct', $answer) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="text-sm font-bold text-green-500">Mark as correct</button>
-                                    </form>
+                                        <form action="{{ route('answer.best', $answer) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="text-sm font-bold text-blue-500">Mark as best answer</button>
+                                        </form>
+                                    @endcan
 
-                                    <form action="{{ route('answer.best', $answer) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="text-sm font-bold text-blue-500">Mark as best answer</button>
-                                    </form>
                                 </div>
                             @endforeach
                         </div>

@@ -20,8 +20,8 @@ class RoleAbilitySeeder extends Seeder
 
         //Ability to mark any answer as the best answer
         $markAsBest = \App\Models\Ability::create([
-            'name' => 'mark_as_best',
-            'label' => 'Mark any answer as the best answer',
+            'name' => 'can_update_all_questions',
+            'label' => 'Can update all questions in the forum.',
         ]);
 
         //Assign ability to role

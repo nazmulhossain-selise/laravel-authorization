@@ -56,6 +56,12 @@ class User extends Authenticatable
         return $this->roles()->save($role);
     }
 
+    //all abilities of the user in an array
+    public function abilities()
+    {
+        return $this->roles->map->abilities->flatten()->pluck('name')->unique();
+    }
+
     public function questions()
     {
         return $this->hasMany(Question::class);
